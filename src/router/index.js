@@ -4,6 +4,8 @@ import Home from '@/components/home'
 import VueHome from '@/components/vuejs/home'
 import VueTopics from '@/components/vuejs/topics'
 import About from '@/components/about'
+import Login from '@/components/login'
+import Users from '@/components/users'
 import VueCreateArticle from '@/components/vuejs/articles/create'
 import VueViewArticle from '@/components/vuejs/articles/view'
 import colorBackground from '@/components/vuejs/articles/componentesIA/colorBackground'
@@ -19,6 +21,12 @@ const router = new Router({
       meta: {Auth: false}
     },
     {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      meta: {Auth: false}
+    },
+    {
       path: '/vuejs',
       name: 'vuejs_home',
       component: VueHome,
@@ -31,7 +39,7 @@ const router = new Router({
       meta: {Auth: false}
     },
     {
-      path: '/vuejs/article/componentesIA',
+      path: '/vuejs/article/componentesIA/:id',
       name: 'colorBackground',
       component: colorBackground,
       meta: {Auth: false}
@@ -40,6 +48,12 @@ const router = new Router({
       path: '/about',
       name: 'about',
       component: About,
+      meta: {Auth: false}
+    },
+    {
+      path: '/usuarios',
+      name: 'usuarios',
+      component: Users,
       meta: {Auth: false}
     },
     {

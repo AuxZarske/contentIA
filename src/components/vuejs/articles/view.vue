@@ -23,28 +23,21 @@
       </v-flex>
     </v-layout>
     -->
-   <v-layout row>
-     <v-flex xs10 offset-xs1 class="pb-3">
-        <my-component></my-component>
-        </v-flex>
-  </v-layout>
+   
 
   </v-container>
 </template>
 <script>
 import axios from 'axios'
-import colorBackground from './componentesIA/colorBackground'
 
 export default {
   name: 'Article',
-  components: {
-    'my-component': colorBackground
-  },
   mounted () {
     // console.log(this.$route.params)
   },
   data: () => ({
     show: false,
+    articleId: 0,
     article: {
       title: 'Lorum ipsum title',
       items: [
@@ -92,10 +85,9 @@ export default {
       this.$router.push({name: rname, params: rparams, query: query})
     },
     getTipoIA () {
-      const path = 'http://localhost:8000/api/v1.0/tipoIAs/' + this.$route.params.id + '/'
+      const path = 'http://localhost:8000/api/v1.0/tipoIAs/' + this.articleId + '/'
       axios.get(path).then((response) => {
         this.article = response.data
-        console.log(response.data)
       })
         .catch((error) => {
           console.log(error)
@@ -103,6 +95,7 @@ export default {
     }
   },
   created () {
+    this.articleId = parseInt(this.$route.params.id)
     this.getTipoIA()
   }
 }

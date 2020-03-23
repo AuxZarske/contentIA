@@ -51,6 +51,15 @@
                           placeholder="Descripción"
                           @updated="autosizeTextUpdate"
                         ></autosize-text>
+                        <autosize-text
+                          i="60"
+                          name="componentApp"
+                          id="componentApp"
+                          style="float: left; width: 100%;"
+                          :value="article.componentApp"
+                          placeholder="Componente asociado"
+                          @updated="autosizeTextUpdate"
+                        ></autosize-text>
                         <autosize-text 
                           i="60"
                           name="tags"
@@ -147,6 +156,7 @@ export default {
     article: {
       title: '',
       description: '',
+      componentApp: '',
       tags: '',
       sections: []
     },
@@ -176,6 +186,9 @@ export default {
       }
       if (event.name === 'description') {
         this.article.description = event.value
+      }
+      if (event.name === 'componentApp') {
+        this.article.componentApp = event.value
       }
       if (event.name === 'tags') {
         this.article.tags = event.value
@@ -207,10 +220,12 @@ export default {
     onCancel () {
       var title = ''
       var description = ''
+      var componentApp = ''
       var tags = ''
       var sections = []
       this.article.title = title
       this.article.description = description
+      this.article.componentApp = componentApp
       this.article.tags = tags
       this.article.sections = sections
       location.reload()

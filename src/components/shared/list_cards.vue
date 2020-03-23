@@ -13,7 +13,7 @@
               <v-layout row>
                 <v-flex
                   xs2
-                  @click.stop="toRoute('vuejs_view_article', {id: card.id})"
+                  @click.stop="compareRoute(card.componentApp,{id: card.id})"
                   style="cursor: pointer"
                 >
                   <v-card-media
@@ -32,7 +32,7 @@
                   <div>
                     <div
                       class="title"
-                      @click.stop="toRoute('vuejs_view_article', {id: card.id})"
+                      @click.stop="compareRoute(card.componentApp,{id: card.id})"
                       style="cursor: pointer"
                     >
                       {{card.title}}
@@ -240,11 +240,17 @@ export default {
       this.dialog = true
       this.$router.push({name: rname, params: rparams, query: query})
     },
+    compareRoute (rname, rparams = {}) {
+      if (rname === '') {
+        this.toRoute('vuejs_view_article', rparams)
+      } else {
+        this.toRoute(rname, rparams)
+      }
+    },
     getTipoIAs () {
       const path = 'http://localhost:8000/api/v1.0/tipoIAs/'
       axios.get(path).then((response) => {
         this.cards = response.data
-        console.log(this.cards.length)
       })
         .catch((error) => {
           console.log(error)
@@ -259,11 +265,11 @@ export default {
       const path = 'http://localhost:8000/api/v1.0/tipoIAs/' + numeroID + '/'
       axios.delete(path).then((response) => {
         // location.href = '/vuejs/topics'
-        this.$router.push({ path: '/vuejs/topics' })
         this.getTipoIAs()
+        this.dialog = false
       })
         .catch((erroyr) => {
-          swal('jj')
+          swal('Error en el intento de eliminar')
         })
     },
     deleteQuestion () {

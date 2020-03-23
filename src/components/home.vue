@@ -23,8 +23,8 @@ export default {
     show: false,
     isList: false,
     articles: [
-      {title: 'Vuejs 2 + vuetifyjs content sharing template', created: 'June 18\'', link: 'vuejs_home'},
-      {title: 'Go + Gin + ElasticSearch - Modular rest engine', created: 'June 18\'', link: 'https://github.com/nareshganesan/services/tree/dev'}
+      {title: 'The home is here', created: 'Marzo 18\'', link: 'vuejs_home'},
+      {title: 'coming soon...', created: 'Marzo 19\'', link: 'https://youtube.com'}
     ]
   }),
   methods: {

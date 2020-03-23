@@ -45,23 +45,25 @@
     <v-list>
     <template  >
       <v-list-tile v-for="(item, i) in items" :key="i"  >
-        <v-list-tile-action @click.stop="toRoute(item.link)">
+        <v-list-tile-action @click="drawer = !drawer" @click.stop="toRoute(item.link)" >
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
-        <v-list-tile-content @click.stop="toRoute(item.link)">
+        <v-list-tile-content @click="drawer = !drawer" @click.stop="toRoute(item.link)">
           <v-list-tile-title>
             {{ item.text }}
           </v-list-tile-title>
         </v-list-tile-content>
         <v-list-tile-action v-if="item.add">
             <v-tooltip right>
-              <v-icon dark color="primary" @click.stop="toRoute(item.add)" slot="activator">add</v-icon>
+              <v-icon dark color="primary" @click="drawer = !drawer" @click.stop="toRoute(item.add)" slot="activator">add</v-icon>
                <span>{{item.ttip}}</span>
             </v-tooltip>
         </v-list-tile-action>
       </v-list-tile>
     </template>
     <v-spacer></v-spacer>
+  </v-list>
+  <div style="position:absolute; bottom:0; color:white" class="ma-3">
     <v-list-tile >
       <v-list-tile-action>
         <v-icon>copyright</v-icon>
@@ -72,8 +74,10 @@
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
-    </v-list>
+  </div>
+    
   </v-navigation-drawer>
+
   <v-toolbar app fixed dark class="primary">
     <v-toolbar-side-icon dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center">
@@ -145,9 +149,9 @@ export default {
   computed: {
     items () {
       let menu = [
-        { icon: 'dashboard', text: 'Home', link: 'home' },
-        { icon: 'book', text: 'Topics', link: 'vuejs_topics', add: 'vuejs_create_article', ttip: 'Añadir artículo' },
-        { icon: 'person', text: 'About', link: 'about' }
+        { icon: 'dashboard', text: 'Inicio', link: 'home' },
+        { icon: 'book', text: 'Artículos', link: 'vuejs_topics', add: 'vuejs_create_article', ttip: 'Añadir artículo' },
+        { icon: 'person', text: 'Usuarios', link: 'usuarios' }
       ]
       return menu
     },
