@@ -4,7 +4,7 @@ import Home from '@/components/home'
 import VueHome from '@/components/vuejs/home'
 import VueTopics from '@/components/vuejs/topics'
 import About from '@/components/about'
-import Login from '@/components/login'
+import Login from '@/components/auth/login'
 import Users from '@/components/users'
 import VueCreateArticle from '@/components/vuejs/articles/create'
 import VueViewArticle from '@/components/vuejs/articles/view'
@@ -21,7 +21,7 @@ const router = new Router({
       meta: {Auth: false}
     },
     {
-      path: '/login',
+      path: '/auth/login',
       name: 'login',
       component: Login,
       meta: {Auth: false}

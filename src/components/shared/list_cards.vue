@@ -5,6 +5,12 @@
     style="min-height: 0;"
     grid-list-lg
   >
+
+
+  
+
+
+
     <template v-for="(card, idx) in cards">
       <v-layout row wrap>
         <v-flex xs12>
@@ -89,6 +95,17 @@
         </v-flex>
       </v-layout>
     </template>
+    <div class="my-2" style="display:scroll;
+        position:fixed;
+        top:65px;
+        right:5px;">
+          <v-btn color="primary" fab  dark v-if="isList" @click.stop="listView()">
+          <v-icon>apps</v-icon>
+        </v-btn>
+        <v-btn color="primary" fab  dark v-else @click.stop="listView()">
+          <v-icon>view_list</v-icon>
+         </v-btn>
+    </div>
 
 
     <v-dialog v-model="dialog" persistent max-width="690">
@@ -201,6 +218,7 @@ export default {
       cards: [],
       rating: 4,
       dialog: false,
+      isList: false,
       dialog2: false,
       loader: null,
       loading: false,
@@ -239,6 +257,13 @@ export default {
     toRoute (rname, rparams = {}, query = {}) {
       this.dialog = true
       this.$router.push({name: rname, params: rparams, query: query})
+    },
+    listView () {
+      this.isList = !this.isList
+      var eventName = 'emitListView'
+      window.bus.$emit(eventName, {
+        isList: this.isList
+      })
     },
     compareRoute (rname, rparams = {}) {
       if (rname === '') {

@@ -1,6 +1,10 @@
 <template>
   <v-container fluid grid-list-md>
+    
+   
+    
     <v-layout row wrap>
+      
       <v-flex d-flex
         v-for="(card, idx) in cards"
         v-bind="{ [`xs${flex}`]: true }"
@@ -180,6 +184,20 @@
 
                       
                     </v-dialog>
+
+
+
+     <div class="my-2" style="display:scroll;
+        position:fixed;
+        top:65px;
+        right:5px;">
+          <v-btn color="primary" fab  dark v-if="isList" @click.stop="listView()">
+          <v-icon>apps</v-icon>
+        </v-btn>
+        <v-btn color="primary" fab  dark v-else @click.stop="listView()">
+          <v-icon>view_list</v-icon>
+         </v-btn>
+    </div>
     
   </v-container>
 </template>
@@ -196,6 +214,7 @@ export default {
     return {
       cards: [],
       rating: 4,
+      isList: false,
       dialog: false,
       dialog2: false,
       loader: null,
@@ -235,6 +254,13 @@ export default {
     toRoute (rname, rparams = {}, query = {}) {
       this.dialog = true
       this.$router.push({name: rname, params: rparams, query: query})
+    },
+    listView () {
+      this.isList = !this.isList
+      var eventName = 'emitListView'
+      window.bus.$emit(eventName, {
+        isList: this.isList
+      })
     },
     compareRoute (rname, rparams = {}) {
       if (rname === '') {

@@ -4,18 +4,18 @@
     id="inspire"
     style="background-color: #ffffff !important;"
   >
-    <v-navigation-drawer
+    <v-navigation-drawer  v-if="isAuth"
     dark
     app
     floating
     v-model="drawer"
     >
-    <v-container grid-list-sm>
-      <v-layout row justify-center align-center>
+    <v-container grid-list-sm >
+      <v-layout row justify-center align-center >
         <v-flex xs12>
           <v-card flat>
             <v-card-title flat>
-              <v-container grid-list-sm>
+              <v-container grid-list-sm >
                 <v-layout row wrap>
                   <v-flex xs12
                     align-center justify-center text-xs-center
@@ -79,7 +79,7 @@
   </v-navigation-drawer>
 
   <v-toolbar app fixed dark class="primary">
-    <v-toolbar-side-icon dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
+    <v-toolbar-side-icon v-if="isAuth" dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center">
       <span @click.stop="toRoute('home')">InfoIA.csv</span>
     </v-toolbar-title>
@@ -95,12 +95,19 @@
         ></v-text-field>
       </v-flex>
     </v-layout>
-    <v-btn dark icon v-if="isList" @click.stop="listView()">
-      <v-icon>apps</v-icon>
-    </v-btn>
-    <v-btn dark icon v-else @click.stop="listView()">
-      <v-icon>view_list</v-icon>
-    </v-btn>
+
+
+
+    <div v-if="!isAuth">
+      <v-btn class="ma-2" round  tile color="indigo" dark :to="{name:'login'}">Login</v-btn>
+      <v-btn class="ma-2"  round tile   color="success">Register</v-btn>
+    </div>
+    <div v-else>
+      <label class="headline">Zarske Arnold</label>
+    </div>
+
+    
+    
   </v-toolbar>
 
   <v-content class="px-0">
@@ -139,9 +146,9 @@ export default {
     message: false,
     hints: true,
     fixed: true,
+    isAuth: false,
     drawer: false,
-    theme: false,
-    isList: false
+    theme: false
   }),
   props: {
     source: String
@@ -151,7 +158,7 @@ export default {
       let menu = [
         { icon: 'dashboard', text: 'Inicio', link: 'home' },
         { icon: 'book', text: 'Artículos', link: 'vuejs_topics', add: 'vuejs_create_article', ttip: 'Añadir artículo' },
-        { icon: 'person', text: 'Usuarios', link: 'usuarios' }
+        { icon: 'person', text: 'Usuarios', link: 'login' }
       ]
       return menu
     },
@@ -163,13 +170,6 @@ export default {
     toRoute (rname, rparams = {}, query = {}) {
       this.dialog = true
       this.$router.push({name: rname, params: rparams, query: query})
-    },
-    listView () {
-      this.isList = !this.isList
-      var eventName = 'emitListView'
-      window.bus.$emit(eventName, {
-        isList: this.isList
-      })
     }
   }
 }
