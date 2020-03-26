@@ -4,7 +4,7 @@
     id="inspire"
     style="background-color: #ffffff !important;"
   >
-    <v-navigation-drawer  v-if="isAuth"
+    <v-navigation-drawer  v-if="loggedIn"
     dark
     app
     floating
@@ -79,7 +79,7 @@
   </v-navigation-drawer>
 
   <v-toolbar app fixed dark class="primary">
-    <v-toolbar-side-icon v-if="isAuth" dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
+    <v-toolbar-side-icon v-if="loggedIn" dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center">
       <span @click.stop="toRoute('home')">InfoIA.csv</span>
     </v-toolbar-title>
@@ -98,12 +98,13 @@
 
 
 
-    <div v-if="!isAuth">
+    <div v-if="!loggedIn">
       <v-btn class="ma-2" round  tile color="indigo" dark :to="{name:'login'}">Login</v-btn>
-      <v-btn class="ma-2"  round tile   color="success">Register</v-btn>
+      <v-btn class="ma-2"  round tile   color="success" :to="{name:'register'}">Register</v-btn>
     </div>
     <div v-else>
-      <label class="headline">Zarske Arnold</label>
+      <label class="headline">{{nombreUser}}</label>
+      <v-btn class="ma-2"  round tile   color="success" :to="{name:'logout'}">Log Out</v-btn>
     </div>
 
     
@@ -139,6 +140,9 @@ export default {
   },
   created () {
     this.$store.dispatch('checkAuth')
+    if (this.$store.getters.user.fname) {
+      this.nombreUser = this.$store.getters.user.fname
+    }
   },
   data: () => ({
     fav: true,
@@ -146,14 +150,17 @@ export default {
     message: false,
     hints: true,
     fixed: true,
-    isAuth: false,
     drawer: false,
+    nombreUser: '',
     theme: false
   }),
   props: {
     source: String
   },
   computed: {
+    loggedIn () {
+      return this.$store.getters.isUserAuthenticated
+    },
     items () {
       let menu = [
         { icon: 'dashboard', text: 'Inicio', link: 'home' },

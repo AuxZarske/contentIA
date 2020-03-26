@@ -5,6 +5,8 @@ import VueHome from '@/components/vuejs/home'
 import VueTopics from '@/components/vuejs/topics'
 import About from '@/components/about'
 import Login from '@/components/auth/login'
+import Register from '@/components/auth/register'
+import Logout from '@/components/auth/logout'
 import Users from '@/components/users'
 import VueCreateArticle from '@/components/vuejs/articles/create'
 import VueViewArticle from '@/components/vuejs/articles/view'
@@ -27,6 +29,18 @@ const router = new Router({
       meta: {Auth: false}
     },
     {
+      path: '/auth/register',
+      name: 'register',
+      component: Register,
+      meta: {Auth: false}
+    },
+    {
+      path: '/auth/logout',
+      name: 'logout',
+      component: Logout,
+      meta: {Auth: false}
+    },
+    {
       path: '/vuejs',
       name: 'vuejs_home',
       component: VueHome,
@@ -36,13 +50,13 @@ const router = new Router({
       path: '/vuejs/topics',
       name: 'vuejs_topics',
       component: VueTopics,
-      meta: {Auth: false}
+      meta: {Auth: true}
     },
     {
       path: '/vuejs/article/componentesIA/:id',
       name: 'colorBackground',
       component: colorBackground,
-      meta: {Auth: false}
+      meta: {Auth: true}
     },
     {
       path: '/about',
@@ -54,7 +68,7 @@ const router = new Router({
       path: '/usuarios',
       name: 'usuarios',
       component: Users,
-      meta: {Auth: false}
+      meta: {Auth: true}
     },
     {
       path: '/vuejs/article/',
@@ -66,7 +80,7 @@ const router = new Router({
       path: '/vuejs/article/:id',
       name: 'vuejs_view_article',
       component: VueViewArticle,
-      meta: {Auth: false}
+      meta: {Auth: true}
     }
   ]
 })

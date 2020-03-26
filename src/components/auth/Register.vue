@@ -28,19 +28,19 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       name: '',
       email: '',
-      password: '',
+      password: ''
     }
   },
   methods: {
-    register() {
+    register () {
       this.$store.dispatch('register', {
         name: this.name,
         email: this.email,
-        password: this.password,
+        password: this.password
       })
         .then(response => {
           this.$router.push({ name: 'login' })

@@ -85,6 +85,7 @@ export default {
       this.$router.push({name: rname, params: rparams, query: query})
     },
     getTipoIA () {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
       const path = 'http://localhost:8000/api/v1.0/tipoIAs/' + this.articleId + '/'
       axios.get(path).then((response) => {
         this.article = response.data

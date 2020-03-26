@@ -183,6 +183,7 @@ export default {
       this.getTextColorIA()
     },
     getTextColorIA () {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
       const path = 'http://localhost:8000/api/v1.0/compColorBack/consult/' + this.idIA + '/' + this.colorPruebaNotHash
       axios.get(path).then((response) => {
         this.textColor = response.data.TextColor
@@ -200,6 +201,7 @@ export default {
           const path = 'http://localhost:8000/api/v1.0/compColorBack/train/'
           console.log(this.datosRed)
           this.botonPlus = false
+          axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
           axios.post(path, this.datosRed).then((response) => {
             swal('Dato agregado como entrenamiento a la red', '', 'success')
             this.botonPlus = true
@@ -225,6 +227,7 @@ export default {
     },
     crearRed () {
       // disable button
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
       const path = 'http://localhost:8000/api/v1.0/compColorBack/redColors/'
       axios.post(path).then((response) => {
         swal('Nuevo articulo creado correctamente', '', 'success')
@@ -235,6 +238,7 @@ export default {
         })
     },
     reinicioIA () {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
       const path = 'http://localhost:8000/api/v1.0/compColorBack/redColors/' + this.idIA + '/'
       axios.delete(path).then((response) => {
         console.log(response)
@@ -246,6 +250,7 @@ export default {
         })
     },
     getTrainData () {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
       const path = 'http://localhost:8000/api/v1.0/compColorBack/train/?red=' + this.idIA
       axios.get(path).then((response) => {
         // this.desserts = response.data

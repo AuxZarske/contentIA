@@ -209,6 +209,7 @@ export default {
       return window.marked(data, { sanitize: sanitize })
     },
     onSubmit () {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
       const path = 'http://localhost:8000/api/v1.0/tipoIAs/'
       axios.post(path, this.article).then((response) => {
         swal('Nuevo articulo creado correctamente', '', 'success')
