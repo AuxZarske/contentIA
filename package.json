@@ -2,7 +2,7 @@
   "name": "insightstream.io",
   "version": "1.0.0",
   "description": "Stream of software engineering and data insights",
-  "author": "ng <nareshkumarganesan@gmail.com>",
+  "author": "ng <kaitosaw@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
