@@ -20,8 +20,6 @@ import ListCards from './components/shared/list_cards'
 import GridCards from './components/shared/grid_cards'
 import AutoSizeText from './components/shared/autosize-text'
 
-import Login from './components/auth/login'
-
 window.lsd = lstore.lsd
 window.store = store
 window.axios = axios
@@ -75,7 +73,6 @@ Vue.config.productionTip = process.env.NODE_ENV === 'production'
 Vue.component('list-cards', ListCards)
 Vue.component('grid-cards', GridCards)
 Vue.component('autosize-text', AutoSizeText)
-Vue.component('login', Login)
 
 /* eslint-disable no-new */
 new Vue({
