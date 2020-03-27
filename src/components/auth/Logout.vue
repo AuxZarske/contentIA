@@ -1,4 +1,8 @@
 <template>
+<v-container
+    class="fluid px-0"
+  >
+</v-container>
 
 </template>
 
