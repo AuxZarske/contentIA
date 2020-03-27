@@ -184,7 +184,7 @@ export default {
     },
     getTextColorIA () {
       axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
-      const path = 'http://localhost:8000/api/v1.0/compColorBack/consult/' + this.idIA + '/' + this.colorPruebaNotHash
+      const path = '/api/v1.0/compColorBack/consult/' + this.idIA + '/' + this.colorPruebaNotHash
       axios.get(path).then((response) => {
         this.textColor = response.data.TextColor
       })
@@ -198,7 +198,7 @@ export default {
           this.datosRed.red = this.idIA
           this.datosRed.backgroundColor = this.dataColorSelect
           this.datosRed.textColor = this.dataTextSelect
-          const path = 'http://localhost:8000/api/v1.0/compColorBack/train/'
+          const path = '/api/v1.0/compColorBack/train/'
           console.log(this.datosRed)
           this.botonPlus = false
           axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
@@ -228,7 +228,7 @@ export default {
     crearRed () {
       // disable button
       axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
-      const path = 'http://localhost:8000/api/v1.0/compColorBack/redColors/'
+      const path = '/api/v1.0/compColorBack/redColors/'
       axios.post(path).then((response) => {
         swal('Nuevo articulo creado correctamente', '', 'success')
         this.idIA = response.data.id
@@ -239,7 +239,7 @@ export default {
     },
     reinicioIA () {
       axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
-      const path = 'http://localhost:8000/api/v1.0/compColorBack/redColors/' + this.idIA + '/'
+      const path = '/api/v1.0/compColorBack/redColors/' + this.idIA + '/'
       axios.delete(path).then((response) => {
         console.log(response)
         swal('Borrado de entrenamiento exitoso', '', 'success')
@@ -251,7 +251,7 @@ export default {
     },
     getTrainData () {
       axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
-      const path = 'http://localhost:8000/api/v1.0/compColorBack/train/?red=' + this.idIA
+      const path = '/api/v1.0/compColorBack/train/?red=' + this.idIA
       axios.get(path).then((response) => {
         // this.desserts = response.data
         var diccion = {}

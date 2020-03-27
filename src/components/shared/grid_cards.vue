@@ -271,7 +271,7 @@ export default {
     },
     getTipoIAs () {
       axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
-      const path = 'http://localhost:8000/api/v1.0/tipoIAs/'
+      const path = '/api/v1.0/tipoIAs/'
       axios.get(path).then((response) => {
         this.cards = response.data
       })
@@ -286,7 +286,7 @@ export default {
     deleteTipoIA () {
       axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
       var numeroID = this.articleChange
-      const path = 'http://localhost:8000/api/v1.0/tipoIAs/' + numeroID + '/'
+      const path = '/api/v1.0/tipoIAs/' + numeroID + '/'
       axios.delete(path).then((response) => {
         // location.href = '/vuejs/topics'
         // this.$router.push({ path: '/vuejs/topics' })

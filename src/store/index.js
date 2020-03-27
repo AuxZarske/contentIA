@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = 'http://localhost:8000'
 
 export const store = new Vuex.Store({
   state: {
@@ -39,6 +39,22 @@ export const store = new Vuex.Store({
       window.lsd.set('user', newUser)
       window.lsd.set('token', payload.token)
     },
+    register (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post('/api/v1.0/usersManage/register', {
+          username: data.name,
+          email: data.email,
+          password1: data.password1,
+          password2: data.password2
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
     signinUser ({commit}, payload) {
       const newUser = {
         fname: payload.fname,
@@ -54,7 +70,7 @@ export const store = new Vuex.Store({
     },
     retrieveToken (context, credentials) {
       return new Promise((resolve, reject) => {
-        axios.post('http://localhost:8000/api/v1.0/usersManage/login/', {
+        axios.post('/api/v1.0/usersManage/login/', {
           username: credentials.username,
           password: credentials.password
         })
@@ -132,7 +148,7 @@ export const store = new Vuex.Store({
       axios.defaults.headers.common['Authorization'] = 'Token ' + context.state.token
       if (context.getters.isUserAuthenticated) {
         return new Promise((resolve, reject) => {
-          axios.post('http://localhost:8000/api/v1.0/usersManage/logout/')
+          axios.post('/api/v1.0/usersManage/logout/')
             .then(response => {
               localStorage.removeItem('access_token')
               context.commit('destroyToken')

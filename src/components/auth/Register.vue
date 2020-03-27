@@ -18,6 +18,11 @@
         <input type="password" name="password" id="password" class="login-input" v-model="password">
       </div>
 
+      <div class="form-control mb-more">
+        <label for="password">Repit Password</label>
+        <input type="password" name="password2" id="password2" class="login-input" v-model="password2">
+      </div>
+
       <div class="form-control">
         <button type="submit" class="btn-submit">Create Account</button>
       </div>
@@ -32,7 +37,8 @@ export default {
     return {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      password2: ''
     }
   },
   methods: {
@@ -40,7 +46,8 @@ export default {
       this.$store.dispatch('register', {
         name: this.name,
         email: this.email,
-        password: this.password
+        password1: this.password,
+        password2: this.password2
       })
         .then(response => {
           this.$router.push({ name: 'login' })
