@@ -8,6 +8,7 @@ import Login from '@/components/auth/Login'
 import Register from '@/components/auth/Register'
 import Logout from '@/components/auth/Logout'
 import Users from '@/components/users'
+import Config from '@/components/config'
 import VueCreateArticle from '@/components/vuejs/articles/create'
 import VueViewArticle from '@/components/vuejs/articles/view'
 import colorBackground from '@/components/vuejs/articles/componentesIA/colorBackground'
@@ -69,6 +70,12 @@ const router = new Router({
       name: 'usuarios',
       component: Users,
       meta: {Auth: true}
+    },
+    {
+      path: '/config',
+      name: 'config',
+      component: Config,
+      meta: {Auth: false}
     },
     {
       path: '/vuejs/article/',

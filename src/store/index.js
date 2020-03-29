@@ -180,6 +180,10 @@ export const store = new Vuex.Store({
       console.log(state)
       return state.token
     },
+    changeURL (state) {
+      axios.defaults.baseURL = 'http://localhost:7777'
+      return axios.defaults.baseURL
+    },
     loading (state) {
       return state.loading
     }

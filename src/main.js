@@ -24,7 +24,7 @@ window.lsd = lstore.lsd
 window.store = store
 window.axios = axios
 window._ = lodash
-window.axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://localhost:8000' : 'http://localhost:8080'
+// window.axios.defaults.baseURL = (process.env.NODE_ENV !== 'production') ? 'http://localhost:8000' : 'http://localhost:8080'
 window.Form = Form
 window.CustXHR = CustXHR
 window.Errors = Errors

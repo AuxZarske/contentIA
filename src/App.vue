@@ -20,12 +20,9 @@
                   <v-flex xs12
                     align-center justify-center text-xs-center
                   >
-                    <v-avatar
-                      tile="tile"
-                      size="75"
-                    >
-                      <img src="./assets/logo_only.png" alt="avatar">
-                    </v-avatar>
+                    
+                      <img src="@/assets/redes.png" width="90px" >
+                    
                   </v-flex>
                   <v-flex xs12
                     align-center justify-center text-xs-center
@@ -78,7 +75,7 @@
     
   </v-navigation-drawer>
 
-  <v-toolbar app fixed dark class="primary">
+  <v-toolbar app fixed dark class="primary" >
     <v-toolbar-side-icon v-if="loggedIn" dark @click.stop="drawer = !drawer" ></v-toolbar-side-icon>
     <v-toolbar-title class="mr-5 align-center">
       <span @click.stop="toRoute('home')">InfoIA.csv</span>
@@ -112,10 +109,11 @@
   </v-toolbar>
 
   <v-content class="px-0">
-    <v-container fluid fill-height class="px-0">
+    <v-container fluid fill-height class="px-0" style="padding:0px">
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs12 >
           <router-view>
+
           </router-view>
         </v-flex>
       </v-layout>
@@ -165,7 +163,8 @@ export default {
       let menu = [
         { icon: 'dashboard', text: 'Inicio', link: 'home' },
         { icon: 'book', text: 'Artículos', link: 'vuejs_topics', add: 'vuejs_create_article', ttip: 'Añadir artículo' },
-        { icon: 'person', text: 'Usuarios', link: 'login' }
+        { icon: 'person', text: 'Usuarios', link: 'usuarios' },
+        { icon: 'mdi-wrench', text: 'Configuración', link: 'config' }
       ]
       return menu
     },
