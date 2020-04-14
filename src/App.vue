@@ -160,12 +160,22 @@ export default {
       return this.$store.getters.isUserAuthenticated
     },
     items () {
+      var rol = this.$store.getters.user.role
+      console.log('rol:')
+      console.log(this.$store.getters.user.role)
+      // 4 if
       let menu = [
-        { icon: 'dashboard', text: 'Inicio', link: 'home' },
-        { icon: 'book', text: 'Artículos', link: 'vuejs_topics', add: 'vuejs_create_article', ttip: 'Añadir artículo' },
-        { icon: 'person', text: 'Usuarios', link: 'usuarios' },
-        { icon: 'mdi-wrench', text: 'Configuración', link: 'config' }
+        { icon: 'dashboard', text: 'Inicio', link: 'home' }
       ]
+      if (rol === 'admin' || rol === 'gestor') {
+        menu.push({ icon: 'book', text: 'Artículos', link: 'vuejs_topics', add: 'vuejs_create_article', ttip: 'Añadir artículo' })
+      } else {
+        menu.push({ icon: 'book', text: 'Artículos', link: 'vuejs_topics' })
+      }
+      if (rol === 'admin') {
+        menu.push({ icon: 'person', text: 'Administración', link: 'usuarios' })
+        menu.push({ icon: 'mdi-wrench', text: 'Configuración', link: 'config' })
+      }
       return menu
     },
     year () {

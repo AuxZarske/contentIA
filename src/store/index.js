@@ -8,6 +8,7 @@ axios.defaults.baseURL = 'http://localhost:8000'
 export const store = new Vuex.Store({
   state: {
     user: null, // q guarda?
+    ruta: axios.defaults.baseURL,
     token: null, // este agrege yo, descartarlo luego
     loading: false
   },
@@ -17,6 +18,9 @@ export const store = new Vuex.Store({
     },
     setLoading (state, payload) {
       state.loading = payload
+    },
+    setPath (state, payload) {
+      state.ruta = payload
     },
     destroyToken (state) {
       state.token = null
@@ -41,7 +45,8 @@ export const store = new Vuex.Store({
     },
     register (context, data) {
       return new Promise((resolve, reject) => {
-        axios.post('/api/v1.0/usersManage/register', {
+        var path = axios.defaults.baseURL + '/api/v1.0/usersManage/register'
+        axios.post(path, {
           username: data.name,
           email: data.email,
           password1: data.password1,
@@ -70,24 +75,24 @@ export const store = new Vuex.Store({
     },
     retrieveToken (context, credentials) {
       return new Promise((resolve, reject) => {
-        axios.post('/api/v1.0/usersManage/login/', {
+        // no se completa
+        var path = axios.defaults.baseURL + '/api/v1.0/usersManage/login/'
+        axios.post(path, {
           username: credentials.username,
           password: credentials.password
         })
           .then(response => {
-            const token = response.data.key
+            const token = response.data.data
             localStorage.setItem('access_token', token)
             context.commit('retrieveToken', token)
             resolve(response)
-            console.log(response)
-            // nuevo
-            console.log(this.state)
+            console.log(response.data)
             const newUser = {
               fname: credentials.username,
               lname: credentials.username,
-              email: 'hyu@gmail.com',
-              mobile: 'payload.mobile',
-              role: 'payload.role'
+              email: 'ninguno',
+              mobile: 'ninguno',
+              role: response.data.userRol
             }
             window.lsd.set('user', newUser)
             window.lsd.set('token', token)
@@ -144,11 +149,15 @@ export const store = new Vuex.Store({
       window.lsd.set('token', payload)
       window.axios.defaults.headers.common['Authorization'] = payload
     },
+    setPath (cantext, payload) {
+      cantext.state.ruta = payload
+    },
     destroyToken (context) {
       axios.defaults.headers.common['Authorization'] = 'Token ' + context.state.token
       if (context.getters.isUserAuthenticated) {
         return new Promise((resolve, reject) => {
-          axios.post('/api/v1.0/usersManage/logout/')
+          var path = axios.defaults.baseURL + '/api/v1.0/usersManage/logout/'
+          axios.post(path)
             .then(response => {
               localStorage.removeItem('access_token')
               context.commit('destroyToken')
@@ -181,7 +190,8 @@ export const store = new Vuex.Store({
       return state.token
     },
     changeURL (state) {
-      axios.defaults.baseURL = 'http://localhost:7777'
+      console.log(state.ruta)
+      axios.defaults.baseURL = state.ruta
       return axios.defaults.baseURL
     },
     loading (state) {

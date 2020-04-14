@@ -11,7 +11,7 @@ import Users from '@/components/users'
 import Config from '@/components/config'
 import VueCreateArticle from '@/components/vuejs/articles/create'
 import VueViewArticle from '@/components/vuejs/articles/view'
-import colorBackground from '@/components/vuejs/articles/componentesIA/colorBackground'
+import colorBack from '@/components/vuejs/articles/componentesIA/colorBack'
 
 Vue.use(Router)
 
@@ -55,8 +55,8 @@ const router = new Router({
     },
     {
       path: '/vuejs/article/componentesIA/:id',
-      name: 'colorBackground',
-      component: colorBackground,
+      name: 'colorBack',
+      component: colorBack,
       meta: {Auth: true}
     },
     {

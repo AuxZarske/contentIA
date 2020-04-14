@@ -9,6 +9,14 @@
           <div v-if="article.link.indexOf('http') >= 0" class="title-font" @click="toExtRoute(article.link)"> [{{article.created}}] {{article.title}} </div>
           <div v-else class="title-font" @click="toRoute('vuejs_home')"> [{{article.created}}] {{article.title}} </div>
         </li>
+        
+
+        <div v-for="item in items">
+          hola
+        </div>
+
+
+
       </ul>
     </v-flex>
   </v-layout>
@@ -20,6 +28,10 @@ export default {
   created () {
   },
   data: () => ({
+    items: [
+      {id: 1, name: 'yu'},
+      {id: 2, name: 'yu'}
+    ],
     show: false,
     isList: false,
     articles: [

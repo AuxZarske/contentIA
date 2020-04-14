@@ -51,15 +51,7 @@
                           placeholder="Descripción"
                           @updated="autosizeTextUpdate"
                         ></autosize-text>
-                        <autosize-text
-                          i="60"
-                          name="componentApp"
-                          id="componentApp"
-                          style="float: left; width: 100%;"
-                          :value="article.componentApp"
-                          placeholder="Componente asociado"
-                          @updated="autosizeTextUpdate"
-                        ></autosize-text>
+                        
                         <autosize-text 
                           i="60"
                           name="tags"
@@ -71,6 +63,17 @@
                         ></autosize-text>
                       </v-card-text>
                     </v-flex>
+                    <v-container fluid grid-list-xl>
+                    <v-flex xs4 >
+                        <v-select  
+                                    :items="itemsApp"
+                                    v-model="article.componentApp"
+                                    label="Componente asociado"
+                                    
+                                    
+                                ></v-select>
+                        </v-flex>
+                    </v-container>
                     <v-flex xs12 v-for="(section, idx) in article.sections" :key="idx">
                       <v-card-text>
                         <autosize-text
@@ -147,6 +150,7 @@ import swal from 'sweetalert'
 export default {
   name: 'Article',
   created () {
+    this.getAppsData()
   },
   mounted () {
     // console.log(this.$route.params)
@@ -160,6 +164,7 @@ export default {
       tags: '',
       sections: []
     },
+    itemsApp: ['uno', 'colorBack'],
     formattedArticle: '',
     tab: null,
     items: [
@@ -187,9 +192,6 @@ export default {
       if (event.name === 'description') {
         this.article.description = event.value
       }
-      if (event.name === 'componentApp') {
-        this.article.componentApp = event.value
-      }
       if (event.name === 'tags') {
         this.article.tags = event.value
       }
@@ -207,6 +209,20 @@ export default {
     },
     markdown (data, sanitize = true) {
       return window.marked(data, { sanitize: sanitize })
+    },
+    getAppsData () {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
+      var path = axios.defaults.baseURL + '/api/v1.0/AppsDj/'
+      axios.get(path).then((response) => {
+        // this.desserts = response.data
+        this.itemsApp = []
+        for (var i = 0; i < response.data.length; i++) {
+          this.itemsApp.push(response.data[i].nombreApp)
+        }
+      })
+        .catch((erujror) => {
+          console.log('falladatos')
+        })
     },
     onSubmit () {
       axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData

@@ -26,11 +26,13 @@
             >
               <v-card-title>
 
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
+                <v-tooltip bottom >
+                  <template v-slot:activator="{ on }" v-if="visibleManage">
+                    
                    <v-btn dark icon v-on="on"  @click.stop="dialog = true" v-on:click="changeSelection({id: card.id, title: card.title})">
                           <menu-icon ></menu-icon>
                         </v-btn>
+                    
                   </template>
                   <span>Menú de opciones</span>
                 </v-tooltip>
@@ -213,6 +215,7 @@ export default {
   data () {
     return {
       cards: [],
+      appsSaves: [],
       rating: 4,
       isList: false,
       dialog: false,
@@ -221,6 +224,7 @@ export default {
       loading: false,
       loading2: false,
       loading3: false,
+      visibleManage: false,
       articleChange: 0,
       articleChangeTitle: ''
     }
@@ -229,9 +233,7 @@ export default {
     loader () {
       const l = this.loader
       this[l] = !this[l]
-
       setTimeout(() => (this[l] = false), 1000)
-
       this.loader = null
     }
   },
@@ -262,11 +264,37 @@ export default {
         isList: this.isList
       })
     },
+    numRolThis (rol) {
+      var listaRoles = ['anonymous', 'registered', 'registeredVIP', 'gestor', 'admin']
+      return listaRoles.indexOf(rol)
+    },
+    getRolNameApp () {
+      axios.defaults.headers.common['Authorization'] = 'Token ' + this.$store.getters.tokenData
+      var path = axios.defaults.baseURL + '/api/v1.0/AppsDj/'
+      axios.get(path).then((response) => {
+        this.appsSaves = response.data
+      })
+        .catch((erujror) => {
+          console.log('falladatos')
+        })
+    },
     compareRoute (rname, rparams = {}) {
       if (rname === '') {
         this.toRoute('vuejs_view_article', rparams)
       } else {
-        this.toRoute(rname, rparams)
+        var numRolUser = this.numRolThis(this.$store.getters.user.role)
+        var numRolApp = -1
+        for (var i = 0; i < this.appsSaves.length; i++) {
+          if (this.appsSaves[i].nombreApp === rname) {
+            var rol = this.appsSaves[i].rol
+            numRolApp = this.numRolThis(rol)
+          }
+        }
+        if (numRolApp <= numRolUser && numRolUser !== -1 && numRolApp !== -1) {
+          this.toRoute(rname, rparams)
+        } else {
+          this.toRoute('vuejs_view_article', rparams)
+        }
       }
     },
     getTipoIAs () {
@@ -316,7 +344,12 @@ export default {
     }
   },
   created () {
+    this.getRolNameApp()
     this.getTipoIAs()
+    var rol = this.$store.getters.user.role
+    if (rol === 'admin' || rol === 'gestor') {
+      this.visibleManage = true
+    }
   }
 }
 </script>

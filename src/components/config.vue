@@ -33,6 +33,7 @@
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
 
 export default {
   created () {
@@ -40,7 +41,8 @@ export default {
   },
   data () {
     return {
-      PathToday: ''
+      PathToday: '',
+      rutaGlobal: ''
     }
   },
   methods: {
@@ -48,7 +50,14 @@ export default {
       this.PathToday = axios.defaults.baseURL
     },
     setPath () {
-      this.PathToday = this.$store.getters.changeURL
+      if (this.rutaGlobal !== '') {
+        var payload = this.rutaGlobal
+        this.$store.dispatch('setPath', payload)
+        this.PathToday = this.$store.getters.changeURL
+        swal('Actualizado correctamente', {icon: 'success'})
+      } else {
+        swal('Primeramente, escriba la nueva ruta.', {icon: 'error'})
+      }
     }
   }
 }
